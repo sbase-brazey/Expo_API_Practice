@@ -166,6 +166,17 @@ export default function HomeScreen() {
   }
 
   async function deleteProduct(product: Product) {
+    if (latestProduct?.id === product.id) {
+      setLatestProduct(null);
+      setProducts(currentProducts => currentProducts.filter(item => item.id !== product.id));
+      if (editingProduct?.id === product.id) {
+        setEditingProduct(null);
+        setShowForm(false);
+      }
+      setError(null);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
